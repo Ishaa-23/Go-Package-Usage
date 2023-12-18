@@ -3,23 +3,19 @@ package main
 import (
     "context"
     "fmt"
-   
-    openapiclient "github.com/Ishaa-23/Go-SDK"
+    "os"
+    openapiclient "github.com/Ishaa-23/TestSDK"
 )
 
 func main() {
-    id := int32(2) // int32 | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmployeeAPI.ApiEmployeeIdGet(context.Background(), id).Execute()
+    resp, r, err := apiClient.StudentAPI.ApiStudentGet(context.Background()).Execute()
     if err != nil {
-
-        fmt.Println(r)
-    } else
-	{
-       // response from `ApiEmployeeIdGet`: []Employee
-    fmt.Printf("Response from `EmployeeAPI.ApiEmployeeIdGet`: %v\n", resp)
-	}
-    
+        fmt.Fprintf(os.Stderr, "Error when calling `StudentAPI.ApiStudentGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ApiStudentGet`: []Student
+    fmt.Fprintf(os.Stdout, "Response from `StudentAPI.ApiStudentGet`: %v\n", resp)
 }
